@@ -1,0 +1,61 @@
+from tkinter import *
+
+def registro():
+    nome1 = nome.get()
+    cpf1 = cpf.get()
+    matricula1 = matricula.get()
+    sexo1 = sexo.get()
+    nasc1 = nasc.get()
+
+    if nome1 == "" or cpf1 == "" or matricula1 == "" or sexo1 == "":
+        e1.configure(bg="red")
+        mensagem.set("Preencha o(s) espaço(s) em branco")
+    else:
+        if sexo1 == 1:    
+            arqv = open("gui_form.txt", "a")
+            arqv.write("Nome: " + nome1 + " | " + "CPF: " + cpf1[0:3] + "." + cpf1[3:6] + "." + cpf1[6:9] + "-" + cpf1[9:] + " | " + "Matrícula: " + matricula1 + " | " + "Sexo: Masculino" + " | " + "Nascimento: " + nasc1[0:2] + "/" + nasc1[2:4] + "/" + nasc1[4:] + "\n")
+        else:
+            arqv = open("gui_form.txt", "a")
+            arqv.write("Nome: " + nome1 + "\n" + "CPF: " + cpf1[0:3] + "." + cpf1[3:6] + "." + cpf1[6:9] + "-" + cpf1[9:] + "\n" + "Matrícula: " + matricula1 + "\n" + "Sexo: Feminino" + "\n" + "Nascimento: " + nasc1[0:2] + "/" + nasc1[2:4] + "/" + nasc1[4:] + "\n")
+        mensagem.set("Dados cadastrados com sucesso!")
+        
+
+def form():
+    global root
+    root = Tk()
+    root.title("Formulário de Cadastro")
+    root.geometry("330x400")
+    root["bg"] = "yellow"
+
+    global nome, cpf, matricula, sexo, mensagem, nasc, e1
+    nome = StringVar()
+    cpf = StringVar()
+    matricula = StringVar()
+    sexo = IntVar()
+    nasc = StringVar()
+    mensagem = StringVar()
+
+    Label(root, width=300, bg="blue", fg="white", text="Digite seus dados abaixo", font=("Calibri", 9, "bold")).pack()
+
+    Label(root, bg="yellow", text="Nome: ", font=("Calibri")).place(x=10, y=40)
+    e1 = Entry(root, textvariable=nome).place(x=117, y=42)
+
+    Label(root, bg="yellow", text="CPF: ", font=("Calibri")).place(x=10, y=80)
+    Entry(root, textvariable=cpf).place(x=117, y=82)
+
+
+    Label(root, bg="yellow", text="Matrícula: ", font=("Calibri")).place(x=10, y=120)
+    Entry(root, textvariable=matricula).place(x=117, y=122)
+
+    Label(root, bg="yellow", text="Nascimento: ", font=("Calibri")).place(x=10, y=160)
+    Entry(root, textvariable=nasc).place(x=117, y=162)
+
+    Label(root, bg="yellow", text="Sexo: ", font=("Calibri",)).place(x=10, y=200)
+    Radiobutton(root, bg="yellow", text="Masculino", variable=sexo, value=1).place(x=117,y=200)
+    Radiobutton(root, bg="yellow", text="Feminino", variable=sexo, value=2).place(x=220, y=200)
+
+    Button(root, width=10, bg="blue", fg="white", text="Registrar", command=registro, font=("Calibri", 11)).place(x=105,y=240)
+    Button(root, width=10, bg="red", fg="white", text="Sair", command=root.quit, font=("Calibri", 11)).place(x=105,y=280)
+    Label(root, text="",bg="yellow", font=("Calibri", 9, "bold"), textvariable=mensagem).place(x= 50, y= 320)
+
+    root.mainloop()
