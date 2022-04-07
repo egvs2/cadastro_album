@@ -8,7 +8,6 @@ def registro():
     nasc1 = nasc.get()
 
     if nome1 == "" or cpf1 == "" or matricula1 == "" or sexo1 == "":
-        e1.configure(bg="red")
         mensagem.set("Preencha o(s) espaço(s) em branco")
     else:
         if sexo1 == 1:    
@@ -32,7 +31,7 @@ def cadastro_album():
     lancamento = IntVar()
 
     Label(root, text="Nome do álbum: ", font=("Calibri")).place(x=10, y=40)
-    e1 = Entry(root, textvariable=nome_album).place(x=180, y=42)
+    Entry(root, textvariable=nome_album).place(x=180, y=42)
 
     Label(root, text="Ano de lançamento: ", font=("Calibri")).place(x=10, y=80)
     Entry(root, textvariable=ano).place(x=180, y=82)
