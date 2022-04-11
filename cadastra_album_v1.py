@@ -15,7 +15,7 @@ def cadastro():
     else:#condicional para responder "álbum de lançamento?"
     with open("album.txt", "a") as arqv: #context manager para assegurar que o arquivo sempre será fechado
         #jeito mais "pythonic" com operador  ternário
-        teste = arqv.write(f"Sim, {nome1}, {criador1}, {ano1} \n") if lancamento1 == 1 else arqv.write(f"Não, {nome1}, {criador1}, {ano1} \n")
+        arqv.write(f"Sim, {nome1}, {criador1}, {ano1} \n") if lancamento1 == 1 else arqv.write(f"Não, {nome1}, {criador1}, {ano1} \n")
     mensagem.set("Dados cadastrados com sucesso!")
 
 root = Tk()
