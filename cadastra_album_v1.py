@@ -8,17 +8,15 @@ def cadastro():
 
     if nome1 == "" or ano1 == "" or criador1 == "" or lancamento1 == "":
         mensagem.set("Preencha o(s) espaço(s) em branco")#set usado para não criar uma label para cada mensagem
+        
     elif len(ano1) != 4:
           mensagem.set("Ano inválido!")
-    else:
-        #condicional para responder "álbum de lançamento?"
-        if lancamento1 == 1:    
-            with open("album.txt", "a") as arqv:#with para não ter que fechar explicitamente o arquivo
-                arqv.write(f"Sim, {nome1}, {criador1}, {ano1} \n")
-        else:
-            with open("album.txt", "a") as arqv:
-                arqv.write(f"Não, {nome1}, {criador1}, {ano1} \n")
-        mensagem.set("Dados cadastrados com sucesso!")
+   
+    else:#condicional para responder "álbum de lançamento?"
+    with open("album.txt", "a") as arqv: #context manager para assegurar que o arquivo sempre será fechado
+        #jeito mais "pythonic" com operador  ternário
+        teste = arqv.write(f"Sim, {nome1}, {criador1}, {ano1} \n") if lancamento1 == 1 else arqv.write(f"Não, {nome1}, {criador1}, {ano1} \n")
+    mensagem.set("Dados cadastrados com sucesso!")
 
 root = Tk()
 root.title("Cadastrar Álbum")
