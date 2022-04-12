@@ -1,8 +1,7 @@
-from interface import tela_cadastro
-from interface import bandas_cadastradas
-
-tela_cadastro()
-bandas_cadastradas()
+from interface import *
 
 if __name__ == '__main__':
-    pass
+    tela_cadastro
+    tela_albuns
+    tela_nome()
+    tela_ano
