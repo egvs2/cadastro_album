@@ -1,3 +1,5 @@
+import interface as inter
+
 def registro(nome_album, ano, nome_criador, lancamento, mensagem):
     nome1 = nome_album.get()
     ano1 = ano.get()
@@ -19,9 +21,9 @@ def registro(nome_album, ano, nome_criador, lancamento, mensagem):
                 arqv.write(f"Não, {nome1}, {criador1}, {ano1}\n")
         mensagem.set("Dados cadastrados com sucesso!")
 
-def busca_nome(nome_artista, mensagem, ttk, root_nome):
+def busca_nome(nome_artista, mensagem):
 
-    with open("album.txt", "r") as arqv:
+    with open("album.txt", "r", encoding="utf-8") as arqv:
         lista_albuns = [linha.split(",") for linha in arqv]
 
     nome_artista1 = nome_artista.get()
@@ -34,23 +36,9 @@ def busca_nome(nome_artista, mensagem, ttk, root_nome):
             if nome_artista1.upper() in i[2].upper():
                 l_nomes.append(i)
             l_nomes.sort(key=lambda l:l[2])
-
-    arvore = ttk.Treeview(root_nome, columns=("lancamento", "album", "autor", "ano"), show="headings")
-    arvore.column("lancamento", width=100)
-    arvore.column("album", width=270)
-    arvore.column("autor", width=270)
-    arvore.column("ano", width=200)
-    arvore.column("lancamento", width=220)
-    arvore.heading("lancamento", text="PRIMEIRO LANÇAMENTO?")
-    arvore.heading("album", text="NOME DO ÁLBUM")
-    arvore.heading("autor", text="AUTOR DO ÁLBUM")
-    arvore.heading("ano", text="ANO DE LANÇAMENTO")
-    arvore.pack()
-
-    for a,b,c,d in l_nomes:
-        arvore.insert("", "end", values=(a,b,c,d))
-
-def busca_ano(lista_albuns, valor_rb, cb, ttk, root_ano):
+    inter.tela_nomes_presentes(l_nomes)
+   
+def busca_ano(lista_albuns, valor_rb, cb):
     cb1 = int(cb.get())
     valor_rb1 = valor_rb.get()
     l_presente = []
@@ -72,21 +60,5 @@ def busca_ano(lista_albuns, valor_rb, cb, ttk, root_ano):
             if int(i[3]) >= cb1:
                 l_presente.append(i)
         l_presente.sort(key = lambda l:l[3])
-            
-    arvore = ttk.Treeview(root_ano, columns=("lancamento", "album", "autor", "ano"), show="headings")
-    arvore.column("lancamento", width=100)
-    arvore.column("album", width=270)
-    arvore.column("autor", width=270)
-    arvore.column("ano", width=200)
-    arvore.column("lancamento", width=220)
-    arvore.heading("lancamento", text="PRIMEIRO LANÇAMENTO?")
-    arvore.heading("album", text="NOME DO ÁLBUM")
-    arvore.heading("autor", text="AUTOR DO ÁLBUM")
-    arvore.heading("ano", text="ANO DE LANÇAMENTO")
-    arvore.pack()
-
-    for a,b,c,d in l_presente:
-        arvore.insert("", "end", values=(a,b,c,d))
-
-            
-       
+    
+    inter.tela_anos_presentes(l_presente)       
