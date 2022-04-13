@@ -1,4 +1,5 @@
-import interface as inter
+from domain import *
+from tkinter import *
 
 def registro(nome_album, ano, nome_criador, lancamento, mensagem):
     nome1 = nome_album.get()
@@ -21,7 +22,7 @@ def registro(nome_album, ano, nome_criador, lancamento, mensagem):
                 arqv.write(f"Não, {nome1}, {criador1}, {ano1}\n")
         mensagem.set("Dados cadastrados com sucesso!")
 
-def busca_nome(nome_artista, mensagem):
+def busca_nome(nome_artista, mensagem, root_nome, tela_nomes_presentes):
 
     with open("album.txt", "r", encoding="utf-8") as arqv:
         lista_albuns = [linha.split(",") for linha in arqv]
@@ -36,9 +37,11 @@ def busca_nome(nome_artista, mensagem):
             if nome_artista1.upper() in i[2].upper():
                 l_nomes.append(i)
             l_nomes.sort(key=lambda l:l[2])
-    inter.tela_nomes_presentes(l_nomes)
+            
+    tela_nomes_presentes(l_nomes)
    
-def busca_ano(lista_albuns, valor_rb, cb):
+def busca_ano(lista_albuns, valor_rb, cb, tela_anos_presentes):
+    global l_presente
     cb1 = int(cb.get())
     valor_rb1 = valor_rb.get()
     l_presente = []
@@ -61,4 +64,4 @@ def busca_ano(lista_albuns, valor_rb, cb):
                 l_presente.append(i)
         l_presente.sort(key = lambda l:l[3])
     
-    inter.tela_anos_presentes(l_presente)       
+    tela_anos_presentes(l_presente)       
